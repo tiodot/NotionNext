@@ -46,7 +46,8 @@ const Slug = props => {
       const pathname = typeof location !== 'undefined' ? location.pathname : '';
       const matched = pathname.match(/-([\d\w]{32})$/);
       if (matched) {
-        location.replace(`/${matched[1]}?${location.search}`);
+        const prefix = location.search ? '?' : '';
+        location.replace(`/${matched[1]}${prefix}${location.search}`);
         return;
       }
       setTimeout(() => {
