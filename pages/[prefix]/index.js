@@ -42,6 +42,13 @@ const Slug = props => {
   useEffect(() => {
     // 404
     if (!post) {
+      // 判断是否是之前的路径
+      const pathname = typeof location !== 'undefined' ? location.pathname : '';
+      const matched = pathname.match(/-([\d\w]{32})$/);
+      if (matched) {
+        router.push(`/${matched[1]}`);
+        return;
+      }
       setTimeout(() => {
         if (isBrowser) {
           const article = document.getElementById('notion-article')
