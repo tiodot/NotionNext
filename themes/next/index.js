@@ -199,6 +199,14 @@ const LayoutSearch = (props) => {
 const Layout404 = props => {
   const router = useRouter()
   useEffect(() => {
+    console.log('layout 404', props);
+    // 判断是否是之前的路径
+    const pathname = typeof location !== 'undefined' ? location.pathname : '';
+    const matched = pathname.match(/-([\d\w]{32})$/);
+    if (matched) {
+      router.push(`/${matched[1]}`);
+      return;
+    }
     // 延时3秒如果加载失败就返回首页
     setTimeout(() => {
       const article = isBrowser && document.getElementById('article-wrapper')
